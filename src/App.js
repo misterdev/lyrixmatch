@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'
-import { BottomNavigation, BottomNavigationAction } from '@material-ui/core'
+import { AppBar, BottomNavigation, BottomNavigationAction, Button, Typography, Toolbar } from '@material-ui/core'
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,6 +22,13 @@ function App() {
 
   return (
     <FullscreenWrapper>
+      <AppBar position="static">
+        <Header>
+          <Title variant="h6">
+            LyriXmatch
+          </Title>
+        </Header>
+      </AppBar>
       <Router>
         <Switch>
           <Route path="/">
@@ -63,16 +70,20 @@ const FullscreenWrapper = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: green;
 `
-
 const Navigation = styled(BottomNavigation)`
   bottom: 0;
 `
-
 const Page = styled.div`
   background-color: blue;
   height: 100%;
 `
-
+const Header = styled(Toolbar)`
+  background-color: white;
+  color: #666;
+`
+const Title = styled(Typography)`
+  width: 100%;
+  text-align: center;
+`
 export default App
