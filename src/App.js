@@ -1,18 +1,20 @@
-import React from 'react';
+import React from 'react'
 import styled from 'styled-components'
-import { AppBar, BottomNavigation, BottomNavigationAction, Button, Typography, Toolbar } from '@material-ui/core'
+import { AppBar, BottomNavigation, BottomNavigationAction, Typography, Toolbar } from '@material-ui/core'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
-} from "react-router-dom";
+} from "react-router-dom"
 
-import PersonIcon from '@material-ui/icons/Person';
-import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
-import SportsEsportsSharpIcon from '@material-ui/icons/SportsEsportsSharp';
+import PersonIcon from '@material-ui/icons/Person'
+import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered'
+import SportsEsportsSharpIcon from '@material-ui/icons/SportsEsportsSharp'
 
-import Game from './Game/Game'
+import Game from './Pages/Game'
+import Loaderboard from './Pages/Loaderboard'
+import Profile from './Pages/Profile'
 
 function App() {
   let page = 0
@@ -33,7 +35,7 @@ function App() {
         <Switch>
           <Route path="/">
             <Page>
-              <Game />
+              <Profile />
             </Page>
           </Route>
           <Route path="/game">
@@ -43,7 +45,7 @@ function App() {
           </Route>
           <Route path="/loaderboard">
             <Page>
-              <Game />
+              <Loaderboard />
             </Page>
           </Route>
         </Switch>
