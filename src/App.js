@@ -19,26 +19,37 @@ import Profile from './Pages/Profile'
 
 import initialState from './state'
 
-const authReducer = (authUser, action) => {
+const authReducer = (user, action) => {
   switch (action.type) {
     case 'login':
-      // TODO user signup
       return action.payload
     case 'logout':
       return null
     default:
-      return authUser
+      return user
   }
 }
 
 const App = () => {
   const [page, setPage] = useState(0)
 
-  const {authUserId, users} = initialState
-  const [authUser, authDispatch] = useReducer(authReducer, users[authUserId])
+  const {authId, users} = initialState
+  const [authUser, authDispatch] = useReducer(authReducer, users[authId])
 
   const switchPage = (_, newPage) => {
     setPage(newPage)
+  }
+
+  const loginHandler = (userName) => {
+    // Users are indexed using their username
+    const userId = userName.toLowerCase()
+    // Quickly handle signup
+    if (!users[userId]) {
+      users[userId] = {
+        name: userName
+      }
+    }
+    authDispatch({ type: 'login', payload: users[userId]})
   }
 
   return (
@@ -65,7 +76,7 @@ const App = () => {
               <Profile
                 user={authUser}
                 users={users}
-                login={user => authDispatch({ type: 'login', payload: user})}
+                login={loginHandler}
                 logout={() => authDispatch({ type: 'logout'})} />
             </Page>
           </Route>

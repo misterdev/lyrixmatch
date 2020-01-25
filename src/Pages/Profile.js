@@ -4,13 +4,10 @@ import { Button, Input } from '@material-ui/core'
 
 const Profile = (props) => {
     const { user, login, logout } = props
-
     const [userName, setUsername] = useState('')
-    const onInputChage = (e) => {
-        setUsername(e.target.value)
-    }
 
-    const handle = () => {}
+    const onInputChage = (e) => setUsername(e.target.value)
+
     return <Wrapper>
         {
             user ?
@@ -25,7 +22,7 @@ const Profile = (props) => {
                     <h2>What's your name?</h2>
                     <form>
                         <Input value={userName} onChange={onInputChage} placeholder="Elon, Mark, Steve,..."> </Input>
-                        <Button variant="contained" color="primary" onClick={() => login({name: userName})}>
+                        <Button variant="contained" color="primary" onClick={() => login(userName)}>
                             LOGIN
                         </Button>
                     </form>
@@ -42,7 +39,6 @@ const Wrapper = styled.div`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    // align-items: center;
     justify-content: center;
 `
 const Card = styled.div`

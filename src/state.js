@@ -1,7 +1,7 @@
 const initialState = {
-    authUserId: 'user5',
+    authId: null,
     scores: {
-        'user0': [
+        'elon': [
             {
                 score: 8,
                 date: '1/1/2001',
@@ -11,13 +11,13 @@ const initialState = {
                 date: '3/3/2003',
             }
         ],
-        'user1': [
+        'mark': [
             {
                 score: 2,
                 date: '3/3/2003',
             }
         ],
-        'user2': [
+        'steve': [
             {
                 score: 7,
                 date: '3/3/2003',
@@ -29,13 +29,13 @@ const initialState = {
         ]
     },
     users: {
-        'user0': {
+        'elon': {
             name: 'Elon'
         },
-        'user1': {
+        'mark': {
             name: 'Mark'
         },
-        'user2': {
+        'steve': {
             name: 'Steve'
         }
     }
