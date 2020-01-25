@@ -1,25 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Button } from '@material-ui/core'
+import { Button, Input } from '@material-ui/core'
 
-function Profile(props) {
+const Profile = (props) => {
+    const { user, login, logout } = props
+
+    const [userName, setUsername] = useState('')
+    const onInputChage = (e) => {
+        setUsername(e.target.value)
+    }
+
+    const handle = () => {}
     return <Wrapper>
         {
-            props.user ?
+            user ?
                 <Card>
-                    <h2>Welcome</h2>
-                    <h1>Devid</h1>
-                    <Button>
+                    <h2>Welcome <b>{user.name}</b></h2>
+                    <Button variant="contained" color="primary" onClick={() => logout()}>
                         LOGOUT
                     </Button>
                 </Card>
             :
                 <Card>
-                    <h2>Welcome</h2>
-                    <h1>Devid</h1>
-                    <Button>
-                        LOGIN
-                    </Button>
+                    <h2>What's your name?</h2>
+                    <form>
+                        <Input value={userName} onChange={onInputChage} placeholder="Elon, Mark, Steve,..."> </Input>
+                        <Button variant="contained" color="primary" onClick={() => login({name: userName})}>
+                            LOGIN
+                        </Button>
+                    </form>
                 </Card>
         }
     </Wrapper>

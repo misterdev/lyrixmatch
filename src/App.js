@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useState, useReducer } from 'react'
 import styled from 'styled-components'
-import { AppBar, BottomNavigation, BottomNavigationAction, Typography, Toolbar } from '@material-ui/core'
+import {
+  AppBar, BottomNavigation, BottomNavigationAction, 
+  Typography, Toolbar
+} from '@material-ui/core'
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
+  Switch, Route, Link, Redirect
 } from "react-router-dom"
 
 import PersonIcon from '@material-ui/icons/Person'
@@ -16,36 +17,56 @@ import Game from './Pages/Game'
 import Loaderboard from './Pages/Loaderboard'
 import Profile from './Pages/Profile'
 
-function App() {
-  let page = 0
+import initialState from './state'
+
+const authReducer = (authUser, action) => {
+  switch (action.type) {
+    case 'login':
+      // TODO user signup
+      return action.payload
+    case 'logout':
+      return null
+    default:
+      return authUser
+  }
+}
+
+const App = () => {
+  const [page, setPage] = useState(0)
+
+  const {authUserId, users} = initialState
+  const [authUser, authDispatch] = useReducer(authReducer, users[authUserId])
+
   const switchPage = (_, newPage) => {
-    page = newPage
+    setPage(newPage)
   }
 
   return (
     <FullscreenWrapper>
       <AppBar position="static">
         <Header>
-          <Title variant="h6">
-            LyriXmatch
-          </Title>
+          <Title variant="h6">LyriXmatch</Title>
         </Header>
       </AppBar>
       <Router>
         <Switch>
-          <Route path="/">
-            <Page>
-              <Profile />
-            </Page>
-          </Route>
           <Route path="/game">
             <Page>
-              <Game />
+              { authUser ? <Game /> : <Redirect to='/' />}
             </Page>
           </Route>
-          <Route path="/loaderboard">
+          <Route path="/leaderboard">
             <Page>
-              <Loaderboard />
+              { authUser ? <Loaderboard /> : <Redirect to='/' />}
+            </Page>
+          </Route>
+          <Route path="/">
+            <Page>
+              <Profile
+                user={authUser}
+                users={users}
+                login={user => authDispatch({ type: 'login', payload: user})}
+                logout={() => authDispatch({ type: 'logout'})} />
             </Page>
           </Route>
         </Switch>
@@ -54,13 +75,13 @@ function App() {
           onChange={switchPage}
           showLabels
         >
-          <Tab label="LEADERBOARD" icon={<FormatListNumberedIcon />} to="/loaderboard" />
+          <Tab label="LEADERBOARD" icon={<FormatListNumberedIcon />} to="/leaderboard" />
           <Tab label="PLAY" icon={<SportsEsportsSharpIcon />} to="/game" />
           <Tab label="PROFILE" icon={<PersonIcon />} to="/" />
         </Navigation>
       </Router>
     </FullscreenWrapper>
-  );
+  )
 }
 
 function Tab(props) {
@@ -77,7 +98,7 @@ const Navigation = styled(BottomNavigation)`
   bottom: 0;
 `
 const Page = styled.div`
-  background-color: blue;
+  background-color: #999;
   height: 100%;
 `
 const Header = styled(Toolbar)`
