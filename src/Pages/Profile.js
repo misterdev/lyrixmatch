@@ -61,13 +61,13 @@ const Wrapper = styled.div`
     height: 100%;
     background-color: #999;
     padding: 10%;
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    box-sizing: border-box;
 `
 const Card = styled.div`
-    padding: 10%;
+    padding: 40px;
     background-color: white;
     display: flex;
     flex-direction: column;
