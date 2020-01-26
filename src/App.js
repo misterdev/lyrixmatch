@@ -17,7 +17,8 @@ import Game from './Pages/Game'
 import Loaderboard from './Pages/Loaderboard'
 import Profile from './Pages/Profile'
 
-import initialState from './state'
+import { dummyScores, dummyUsers } from './utils/state'
+import * as storage from './utils/storage'
 
 const authReducer = (user, action) => {
   switch (action.type) {
@@ -31,25 +32,23 @@ const authReducer = (user, action) => {
 }
 
 const App = () => {
+  storage.init(dummyScores, dummyUsers)
+  const authId = storage.getAuthId()
+
+  const [authUser, authDispatch] = useReducer(authReducer, storage.getUser(authId))
   const [page, setPage] = useState(0)
 
-  const {authId, users} = initialState
-  const [authUser, authDispatch] = useReducer(authReducer, users[authId])
-
-  const switchPage = (_, newPage) => {
-    setPage(newPage)
-  }
+  const switchPage = (_, newPage) => setPage(newPage)
 
   const loginHandler = (userName) => {
     // Users are indexed using their username
     const userId = userName.toLowerCase()
+    let user = storage.getUser(userId)
     // Quickly handle signup
-    if (!users[userId]) {
-      users[userId] = {
-        name: userName
-      }
+    if (!user) {
+      user = storage.addUser(userId, userName)
     }
-    authDispatch({ type: 'login', payload: users[userId]})
+    authDispatch({ type: 'login', payload: user})
   }
 
   return (
@@ -75,7 +74,6 @@ const App = () => {
             <Page>
               <Profile
                 user={authUser}
-                users={users}
                 login={loginHandler}
                 logout={() => authDispatch({ type: 'logout'})} />
             </Page>
