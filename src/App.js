@@ -17,7 +17,7 @@ import Game from './pages/Game'
 import Loaderboard from './pages/Loaderboard'
 import Profile from './pages/Profile'
 
-import { dummyScores, dummyUsers } from './utils/state'
+import { dummyScores, dummyUsers } from './utils/defaults'
 import * as storage from './utils/storage'
 
 const authReducer = (user, action) => {
@@ -33,13 +33,22 @@ const authReducer = (user, action) => {
   }
 }
 
+const scoresReducer = (scores, action) => {
+  if (action.type == 'add') {
+    scores.push(action.score)
+  }
+  return scores
+}
+
 const App = () => {
   storage.init(dummyScores, dummyUsers)
+
   const authId = storage.getAuthId()
-
   const [authUser, authDispatch] = useReducer(authReducer, storage.getUser(authId))
-  const [page, setPage] = useState(0)
 
+  const [scores, scoreDispatch] = useReducer(scoresReducer, storage.getScores())
+
+  const [page, setPage] = useState(0)
   const switchPage = (_, newPage) => setPage(newPage)
 
   const loginHandler = (userName) => {
@@ -71,7 +80,7 @@ const App = () => {
           </Route>
           <Route path="/leaderboard">
             <Page>
-              { authUser ? <Loaderboard /> : <Redirect to='/' />}
+              { authUser ? <Loaderboard scores={scores} /> : <Redirect to='/' />}
             </Page>
           </Route>
           <Route path="/">
