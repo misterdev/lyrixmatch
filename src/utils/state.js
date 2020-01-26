@@ -28,13 +28,16 @@ const dummyScores = [
 
 const dummyUsers = {
     'elon': {
-        name: 'Elon'
+        id: 'elon',
+        name: 'Elon Musk'
     },
     'mark': {
-        name: 'Mark'
+        id: 'mark',
+        name: 'Mark Zuck'
     },
     'steve': {
-        name: 'Steve'
+        id: 'steve',
+        name: 'Steve Jobs'
     }
 }
 

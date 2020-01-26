@@ -19,17 +19,18 @@ const setAuthId = (authId) =>
 const getAuthId = () => 
     getItem('authId')
 
-const addUser = (authId, name) => {
+const addUser = (id, name) => {
     let users = getItem('users')
-    users[authId] = { name }
+    users[id] = { id, name }
     setItem('users', users)
-    return users[authId]
+    return users[id]
 }
 
-const getUser = (authId) => {
+const getUser = (userId) => {
     let users = getItem('users')
     let user
-    if (users) user = users[authId]
+    if (users) user = users[userId]
+    if (user) user.scores = getScoresByUser(userId)
     return user
 }
 

@@ -23,8 +23,10 @@ import * as storage from './utils/storage'
 const authReducer = (user, action) => {
   switch (action.type) {
     case 'login':
+      storage.setAuthId(action.user.id)
       return action.user
     case 'logout':
+      storage.setAuthId(null)
       return null
     default:
       return user
