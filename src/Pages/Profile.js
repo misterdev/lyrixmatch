@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Button, Input, List, ListItem, ListItemText } from '@material-ui/core'
+import { Button, Input, Paper } from '@material-ui/core'
+import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell } from '@material-ui/core'
 
 const Profile = (props) => {
     const { user, login, logout } = props
-    const [userName, setUsername] = useState('')
+    const [ userName, setUsername ] = useState('')
 
     const onInputChage = (e) => setUsername(e.target.value)
 
@@ -15,21 +16,31 @@ const Profile = (props) => {
                 <Button variant="contained" color="primary" onClick={() => logout()}>
                     LOGOUT
                 </Button>
-                <List component="nav">
-                    <ListItem>
-                        {
-                            user.scores.lenght > 0 ?
-                                <ListItemText primary="LATEST SCORES" />
+                <br/><br/>
+                <TableContainer component={Paper}>
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                { user.scores.length == 0 ?
+                                    <TableCell align="center">PLAY THE GAME TO SEE YOUR SCORES HERE!</TableCell>
                                 :
-                                <ListItemText primary="NO SCORES :(" />
-                        }
-                    </ListItem>
-                    { user.scores.map( s => 
-                        <ListItem button>
-                            <ListItemText primary={s.score} />
-                        </ListItem>
-                    )}
-                </List>
+                                    <>
+                                        <TableCell align="center">SCORE</TableCell>
+                                        <TableCell align="center">DATE</TableCell>
+                                    </>
+                                }
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            { user.scores.map( (s, key) => 
+                                <TableRow key={key}>
+                                    <TableCell align="center">{s.score}</TableCell>
+                                    <TableCell align="center">{s.date}</TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </Card>
         :
             <Card>
@@ -62,6 +73,10 @@ const Card = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+`
+
+const TableHeader = styled(TableHead)`
+    background-color: #bbb;
 `
 
 export default Profile
