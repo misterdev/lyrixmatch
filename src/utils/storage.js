@@ -43,7 +43,7 @@ const getScoresByUser = (authId) => {
     const scores = getItem('scores')
     // Won't scale well. It would be better to have
     // an additional mapping userId -> scores
-    return scores.map(({userId, _}) => userId === authId)
+    return scores.filter(({userId, _}) => userId === authId )
 }
 
 export {

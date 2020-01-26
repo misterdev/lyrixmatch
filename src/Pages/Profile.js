@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Button, Input } from '@material-ui/core'
+import { Button, Input, List, ListItem, ListItemText } from '@material-ui/core'
 
 const Profile = (props) => {
     const { user, login, logout } = props
@@ -9,24 +9,38 @@ const Profile = (props) => {
     const onInputChage = (e) => setUsername(e.target.value)
 
     return <Wrapper>
-        {
-            user ?
-                <Card>
-                    <h2>Welcome <b>{user.name}</b></h2>
-                    <Button variant="contained" color="primary" onClick={() => logout()}>
-                        LOGOUT
+        { user ?
+            <Card>
+                <h2>Welcome <b>{user.name}</b></h2>
+                <Button variant="contained" color="primary" onClick={() => logout()}>
+                    LOGOUT
+                </Button>
+                <List component="nav">
+                    <ListItem>
+                        {
+                            user.scores.lenght > 0 ?
+                                <ListItemText primary="LATEST SCORES" />
+                                :
+                                <ListItemText primary="NO SCORES :(" />
+                        }
+                    </ListItem>
+                    { user.scores.map( s => 
+                        <ListItem button>
+                            <ListItemText primary={s.score} />
+                        </ListItem>
+                    )}
+                </List>
+            </Card>
+        :
+            <Card>
+                <h2>What's your name?</h2>
+                <form>
+                    <Input value={userName} onChange={onInputChage} placeholder="Elon, Mark, Steve,..."> </Input>
+                    <Button variant="contained" color="primary" onClick={() => login(userName)}>
+                        LOGIN
                     </Button>
-                </Card>
-            :
-                <Card>
-                    <h2>What's your name?</h2>
-                    <form>
-                        <Input value={userName} onChange={onInputChage} placeholder="Elon, Mark, Steve,..."> </Input>
-                        <Button variant="contained" color="primary" onClick={() => login(userName)}>
-                            LOGIN
-                        </Button>
-                    </form>
-                </Card>
+                </form>
+            </Card>
         }
     </Wrapper>
 }

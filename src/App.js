@@ -13,9 +13,9 @@ import PersonIcon from '@material-ui/icons/Person'
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered'
 import SportsEsportsSharpIcon from '@material-ui/icons/SportsEsportsSharp'
 
-import Game from './Pages/Game'
-import Loaderboard from './Pages/Loaderboard'
-import Profile from './Pages/Profile'
+import Game from './pages/Game'
+import Loaderboard from './pages/Loaderboard'
+import Profile from './pages/Profile'
 
 import { dummyScores, dummyUsers } from './utils/state'
 import * as storage from './utils/storage'
@@ -23,7 +23,7 @@ import * as storage from './utils/storage'
 const authReducer = (user, action) => {
   switch (action.type) {
     case 'login':
-      return action.payload
+      return action.user
     case 'logout':
       return null
     default:
@@ -44,11 +44,13 @@ const App = () => {
     // Users are indexed using their username
     const userId = userName.toLowerCase()
     let user = storage.getUser(userId)
+    let scores = storage.getScoresByUser(userId)
     // Quickly handle signup
     if (!user) {
       user = storage.addUser(userId, userName)
     }
-    authDispatch({ type: 'login', payload: user})
+    user.scores = scores
+    authDispatch({ type: 'login', user})
   }
 
   return (
