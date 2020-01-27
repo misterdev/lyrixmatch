@@ -75,12 +75,19 @@ const App = () => {
         <Switch>
           <Route path="/game">
             <Page>
-              { authUser ? <Game /> : <Redirect to='/' />}
+              { authUser ? 
+                  <Game />
+                :
+                  <Profile
+                    user={authUser}
+                    login={loginHandler}
+                    logout={() => authDispatch({ type: 'logout'})} />
+              }
             </Page>
           </Route>
           <Route path="/leaderboard">
             <Page>
-              { authUser ? <Loaderboard scores={scores} /> : <Redirect to='/' />}
+              <Loaderboard scores={scores} />
             </Page>
           </Route>
           <Route path="/">
@@ -111,8 +118,9 @@ function Tab(props) {
 }
 
 const FullscreenWrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 `

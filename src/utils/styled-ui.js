@@ -14,11 +14,13 @@ const Wrapper = styled.div`
 `
 const Card = styled.div`
     padding: 40px;
+    border-radius: 8px;
     background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    box-shadow: 0px 5px 15px 0px #333;
 `
 const TableHead = styled(MuiTableHead)`
     background-color: #bbb;
