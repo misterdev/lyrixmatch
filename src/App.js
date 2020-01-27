@@ -34,7 +34,7 @@ const authReducer = (user, action) => {
 }
 
 const scoresReducer = (scores, action) => {
-  if (action.type == 'add') {
+  if (action.type === 'add') {
     scores.push(action.score)
   }
   return scores
