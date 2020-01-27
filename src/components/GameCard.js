@@ -1,47 +1,79 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { animated, interpolate } from 'react-spring'
-
-const cards = [
-    'https://upload.wikimedia.org/wikipedia/en/f/f5/RWS_Tarot_08_Strength.jpg',
-    'https://upload.wikimedia.org/wikipedia/en/5/53/RWS_Tarot_16_Tower.jpg',
-    'https://upload.wikimedia.org/wikipedia/en/9/9b/RWS_Tarot_07_Chariot.jpg',
-    'https://upload.wikimedia.org/wikipedia/en/d/db/RWS_Tarot_06_Lovers.jpg',
-    'https://upload.wikimedia.org/wikipedia/en/thumb/8/88/RWS_Tarot_02_High_Priestess.jpg/690px-RWS_Tarot_02_High_Priestess.jpg',
-    'https://upload.wikimedia.org/wikipedia/en/d/de/RWS_Tarot_01_Magician.jpg'
-  ]
+import { Button } from '@material-ui/core'
 
 // This is being used down there in the view, it interpolates rotation and scale into a css transform
 const trans = (r, s) => `perspective(1500px) rotateX(30deg) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`
 
 const GameCard = (props) => {
-    console.log(props)
+    const { rot, scale, question } = props
+    const { quote, options, answer } = question
+
+    const [answered, setAnswered] = useState(null)
+    const selectAnswer = (i) => {
+        setAnswered(i)
+    } 
+
     return <Wrapper {...props}>
-        <Card style={{ transform: interpolate([props.rot, props.scale], trans), backgroundImage: `url(${cards[props.index]})` }} />
+        <Card style={{ transform: interpolate([rot, scale], trans) }}>
+            <Title>Who sings...</Title>
+            <Quote>"{quote}"</Quote><br />
+            {
+                options.map((name, i) =>
+                    <Answer key={i}>
+                        <span>👉</span> 
+                        <AnswerButton onClick={() => selectAnswer(i)}>
+                            <h3>{name}</h3> 
+                        </AnswerButton>
+                        <span>👈</span>
+                    </Answer>
+                )
+            }
+        </Card>
     </Wrapper>
 }
 
 const Wrapper = styled(animated.div)`
-  position: absolute;
-  will-change: transform;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    position: absolute;
+    will-change: transform;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `
 
 const Card = styled(animated.div)`
-  background-color: white;
-  background-size: auto 85%;
-  background-repeat: no-repeat;
-  background-position: center center;
-  width: 45vh;
-  max-width: 300px;
-  height: 85vh;
-  max-height: 570px;
-  will-change: transform;
-  border-radius: 10px;
-  box-shadow: 0 12.5px 100px -10px rgba(50, 50, 73, 0.4), 0 10px 10px -10px rgba(50, 50, 73, 0.3);
+    background-color: white;
+    background-size: auto 85%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 45vh;
+    max-width: 300px;
+    height: 85vh;
+    max-height: 570px;
+    will-change: transform;
+    border-radius: 10px;
+    padding: 30px;
+    box-sizing: borer-box;
+    box-shadow: 0 12.5px 100px -10px rgba(50, 50, 73, 0.4), 0 10px 10px -10px rgba(50, 50, 73, 0.3);
+    display: flex;
+    flex-direction: column;
+`
+const Title = styled.h2`
+    text-align: center;
+`
+const Quote = styled.h1`
+    text-align: center;
+`
+const Answer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // border: 1px solid #666;
+    padding: 10px;
+`
+const AnswerButton = styled(Button)`
+    flex-grow: 1;
 `
 
-//
 export default GameCard
