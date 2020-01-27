@@ -6,7 +6,7 @@ import {
 } from '@material-ui/core'
 import {
   BrowserRouter as Router,
-  Switch, Route, Link, Redirect
+  Switch, Route, Link
 } from "react-router-dom"
 
 import PersonIcon from '@material-ui/icons/Person'
@@ -113,9 +113,7 @@ const App = () => {
   )
 }
 
-function Tab(props) {
-  return <BottomNavigationAction component={Link} {...props} />
-}
+const Tab = (props) => <BottomNavigationAction component={Link} {...props} />
 
 const FullscreenWrapper = styled.div`
   width: 100%;

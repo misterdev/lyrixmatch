@@ -2,7 +2,7 @@ import React from 'react'
 import { Paper } from '@material-ui/core'
 import { TableContainer, Table, TableBody, TableRow, TableCell } from '@material-ui/core'
 
-import { Wrapper, Card, TableHead } from '../utils/styled-ui'
+import { Wrapper, Card, TableHead } from '../components/styled'
 
 const Leaderboard = (props) => {
     let scores = props.scores || []
