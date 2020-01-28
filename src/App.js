@@ -13,7 +13,7 @@ import PersonIcon from '@material-ui/icons/Person'
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered'
 import SportsEsportsSharpIcon from '@material-ui/icons/SportsEsportsSharp'
 
-import Game from './pages/Game'
+import GameWrapper from './pages/GameWrapper'
 import Loaderboard from './pages/Loaderboard'
 import Profile from './pages/Profile'
 
@@ -42,13 +42,11 @@ const scoresReducer = (scores, action) => {
 
 const App = () => {
   storage.init(dummyScores, dummyUsers)
-
   const authId = storage.getAuthId()
   const [authUser, authDispatch] = useReducer(authReducer, storage.getUser(authId))
-
   const [scores, scoreDispatch] = useReducer(scoresReducer, storage.getScores())
-
   const [page, setPage] = useState(0)
+  
   const switchPage = (_, newPage) => setPage(newPage)
 
   const loginHandler = (userName) => {
@@ -76,7 +74,7 @@ const App = () => {
           <Route path="/game">
             <Page>
               { authUser ? 
-                  <Game />
+                  <GameWrapper />
                 :
                   <Profile
                     user={authUser}
