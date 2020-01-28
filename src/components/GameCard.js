@@ -7,26 +7,30 @@ import { Button } from '@material-ui/core'
 const trans = (r, s) => `perspective(1500px) rotateX(30deg) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`
 
 const GameCard = (props) => {
-    const { rot, scale, question } = props
+    const { rot, scale, question, onResult, index } = props
     const { quote, options, answer } = question
+    const [choice, makeChoice] = useState(null)
 
-    const [answered, setAnswered] = useState(null)
-    const selectAnswer = (i) => {
-        setAnswered(i)
-    } 
+    const onAnswer = (a) => {
+        if (choice === null){
+            makeChoice(a)
+            onResult(a === answer)
+        }
+    }
 
     return <Wrapper {...props}>
         <Card style={{ transform: interpolate([rot, scale], trans) }}>
-            <Title>Who sings...</Title>
+            <Title>({index}) Who sings...</Title>
             <Quote>"{quote}"</Quote><br />
             {
                 options.map((name, i) =>
                     <Answer key={i}>
-                        <span>👉</span> 
-                        <AnswerButton onClick={() => selectAnswer(i)}>
+                        <AnswerButton
+                            variant={ choice === null || i != answer ? "outlined" : "contained"} 
+                            color={ choice === null || choice == answer ? "primary" : "secondary"}
+                            onClick={() => onAnswer(i)}>
                             <h3>{name}</h3> 
                         </AnswerButton>
-                        <span>👈</span>
                     </Answer>
                 )
             }
@@ -61,6 +65,7 @@ const Card = styled(animated.div)`
 `
 const Title = styled.h2`
     text-align: center;
+    color: #333;
 `
 const Quote = styled.h1`
     text-align: center;
