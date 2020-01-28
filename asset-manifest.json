@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/lyrixmatch/static/css/main.e15e59f2.chunk.css",
-    "main.js": "/lyrixmatch/static/js/main.3e36d4fb.chunk.js",
-    "main.js.map": "/lyrixmatch/static/js/main.3e36d4fb.chunk.js.map",
+    "main.css": "/lyrixmatch/static/css/main.51032267.chunk.css",
+    "main.js": "/lyrixmatch/static/js/main.6319c4e3.chunk.js",
+    "main.js.map": "/lyrixmatch/static/js/main.6319c4e3.chunk.js.map",
     "runtime-main.js": "/lyrixmatch/static/js/runtime-main.57ccce01.js",
     "runtime-main.js.map": "/lyrixmatch/static/js/runtime-main.57ccce01.js.map",
-    "static/js/2.9612052b.chunk.js": "/lyrixmatch/static/js/2.9612052b.chunk.js",
-    "static/js/2.9612052b.chunk.js.map": "/lyrixmatch/static/js/2.9612052b.chunk.js.map",
+    "static/js/2.7aea1f0b.chunk.js": "/lyrixmatch/static/js/2.7aea1f0b.chunk.js",
+    "static/js/2.7aea1f0b.chunk.js.map": "/lyrixmatch/static/js/2.7aea1f0b.chunk.js.map",
     "index.html": "/lyrixmatch/index.html",
-    "precache-manifest.8967a238f25a40672a85970d95c8223a.js": "/lyrixmatch/precache-manifest.8967a238f25a40672a85970d95c8223a.js",
+    "precache-manifest.e4fb95a9b07db301ff961218f36c2c68.js": "/lyrixmatch/precache-manifest.e4fb95a9b07db301ff961218f36c2c68.js",
     "service-worker.js": "/lyrixmatch/service-worker.js",
-    "static/css/main.e15e59f2.chunk.css.map": "/lyrixmatch/static/css/main.e15e59f2.chunk.css.map",
-    "static/js/2.9612052b.chunk.js.LICENSE": "/lyrixmatch/static/js/2.9612052b.chunk.js.LICENSE"
+    "static/css/main.51032267.chunk.css.map": "/lyrixmatch/static/css/main.51032267.chunk.css.map",
+    "static/js/2.7aea1f0b.chunk.js.LICENSE": "/lyrixmatch/static/js/2.7aea1f0b.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.57ccce01.js",
-    "static/js/2.9612052b.chunk.js",
-    "static/css/main.e15e59f2.chunk.css",
-    "static/js/main.3e36d4fb.chunk.js"
+    "static/js/2.7aea1f0b.chunk.js",
+    "static/css/main.51032267.chunk.css",
+    "static/js/main.6319c4e3.chunk.js"
   ]
 }
