@@ -28,24 +28,34 @@ const authReducer = (user, action) => {
     case 'logout':
       storage.setAuthId(null)
       return null
+    case 'newScore':
+      user.scores.push(action.newScore)
+      return user
     default:
       return user
   }
 }
 
-const scoresReducer = (scores, action) => {
-  if (action.type === 'add') {
-    scores.push(action.score)
-  }
-  return scores
-}
-
 const App = () => {
   storage.init(dummyScores, dummyUsers)
   const authId = storage.getAuthId()
-  const [authUser, authDispatch] = useReducer(authReducer, storage.getUser(authId))
-  const [scores, scoreDispatch] = useReducer(scoresReducer, storage.getScores())
+  const [authUser, authUserDispatch] = useReducer(authReducer, storage.getUser(authId))
+  const [scores, setScores] = useState(storage.getScores())
   const [page, setPage] = useState(0)
+
+  const addScore = (score) => {
+    const newScore = {
+      ...score,
+      userId: authId
+    }
+    console.log('SAVING NEW SCORE', newScore, authUser)
+    setScores(scores => {
+      scores.push(newScore)
+      return scores
+    })
+    authUserDispatch({type: 'newScore', newScore})
+    storage.addNewScore(newScore)
+  }
   
   const switchPage = (_, newPage) => setPage(newPage)
 
@@ -59,7 +69,7 @@ const App = () => {
       user = storage.addUser(userId, userName)
     }
     user.scores = scores
-    authDispatch({ type: 'login', user})
+    authUserDispatch({ type: 'login', user})
   }
 
   return (
@@ -74,12 +84,12 @@ const App = () => {
           <Route path="/game">
             <Page>
               { authUser ? 
-                  <GameWrapper />
+                  <GameWrapper saveScore={addScore}/>
                 :
                   <Profile
                     user={authUser}
                     login={loginHandler}
-                    logout={() => authDispatch({ type: 'logout'})} />
+                    logout={() => authUserDispatch({ type: 'logout'})} />
               }
             </Page>
           </Route>
@@ -93,7 +103,7 @@ const App = () => {
               <Profile
                 user={authUser}
                 login={loginHandler}
-                logout={() => authDispatch({ type: 'logout'})} />
+                logout={() => authUserDispatch({ type: 'logout'})} />
             </Page>
           </Route>
         </Switch>

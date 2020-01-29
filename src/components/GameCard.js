@@ -26,8 +26,8 @@ const GameCard = (props) => {
                 options.map((name, i) =>
                     <Answer key={i}>
                         <AnswerButton
-                            variant={ choice === null || i != answer ? "outlined" : "contained"} 
-                            color={ choice === null || choice == answer ? "primary" : "secondary"}
+                            variant={ choice === null || i !== answer ? "outlined" : "contained"} 
+                            color={ choice === null || choice === answer ? "primary" : "secondary"}
                             onClick={() => onAnswer(i)}>
                             <h3>{name}</h3> 
                         </AnswerButton>

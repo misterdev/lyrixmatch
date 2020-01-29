@@ -9,7 +9,7 @@ import GameCard from '../components/GameCard'
 const to = i => ({ x: 0, y: i * -4, scale: 1, rot: -10 + Math.random() * 20, delay: i * 100, opacity: 1 })
 const from = i => ({ x: 0, rot: 0, scale: 1.5, y: -1000, opacity: 1 })
 
-const GameWrapper = (props) => {
+const Game = (props) => {
   const { cards, setLastScore } = props
   const [score, setScore] = useState(0)
   const [currQuest, setCurrQuest] = useState(0)
@@ -20,6 +20,7 @@ const GameWrapper = (props) => {
 
   const onCardResult = (i, correct) => {
     if (correct) setScore(s => s + 1)
+    clearInterval(intervalCd)
     showNextCard()
   }
   const showNextCard = () => {
@@ -37,6 +38,7 @@ const GameWrapper = (props) => {
   const cardIndex = (i) => cards.length - 1 - i
 
   useEffect(() => {
+    console.log('GAMEUSEFFECT')
     // If game not started
     if (countdown === null) {
       restartCountdown()
@@ -55,9 +57,13 @@ const GameWrapper = (props) => {
     } else if(currQuest === cards.length) {
       console.log('3')
       clearInterval(intervalCd)
-      setLastScore(score)
+      console.log(new Date(), new Date().toLocaleString())
+      setLastScore({ 
+        score,
+        date: new Date().toLocaleString()
+      })
     }
-  }, [countdown])
+  }, [countdown, currQuest])
 
   return <Wrapper>
       <GameInfo>
@@ -104,4 +110,4 @@ const Countdown = styled(Card)`
   color: white; 
 `
 
-export default GameWrapper
+export default Game

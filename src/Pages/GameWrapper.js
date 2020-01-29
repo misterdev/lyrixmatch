@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Fab } from '@material-ui/core'
 import styled from 'styled-components'
 
@@ -70,7 +70,8 @@ const cards = [
   },
 ]
 
-const GameWrapper = (p) => {
+const GameWrapper = (props) => {
+  const { saveScore } = props
   const [isPlaying, setPlaying] = useState(false)
   const [lastScore, setLastScore] = useState(null)
 
@@ -78,6 +79,14 @@ const GameWrapper = (p) => {
     setPlaying(true)
   }
 
+  useEffect(() => {
+    console.log('LAST SCORE?', lastScore)
+    if (lastScore !== null) {
+      console.log('LAST SCORE', lastScore)
+      saveScore(lastScore)
+      setPlaying(false)
+    }
+  }, [lastScore])
   return <Wrapper>
     {
       !isPlaying ?
@@ -86,7 +95,7 @@ const GameWrapper = (p) => {
           <Fab color="primary" onClick={startGame}>
             <PlayArrowIcon />
           </Fab>
-          <h4>{ lastScore !== null && `Last Score: ${lastScore}` }</h4>
+          <h4>{ lastScore !== null && `Last Score: ${lastScore.score}` }</h4>
         </Card>
       :
         <Game cards={cards} setLastScore={setLastScore}/>

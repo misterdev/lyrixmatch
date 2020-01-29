@@ -35,9 +35,8 @@ const getUser = (userId) => {
 }
 
 const getScores = () => getItem('scores')
-const addScore = (userId, score) => {
+const addNewScore = (newScore) => {
     const scores = getItem('scores')
-    const newScore = {userId, score}
     setItem('scores', [...scores, newScore])
 }
 const getScoresByUser = (authId) => {
@@ -54,6 +53,6 @@ export {
     addUser,
     getUser,
     getScores,
-    addScore,
+    addNewScore,
     getScoresByUser
 }
