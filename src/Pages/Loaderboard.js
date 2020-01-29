@@ -1,18 +1,18 @@
-import React from "react"
-import { Paper } from "@material-ui/core"
+import React from "react";
+import { Paper } from "@material-ui/core";
 import {
   TableContainer,
   Table,
   TableBody,
   TableRow,
   TableCell
-} from "@material-ui/core"
+} from "@material-ui/core";
 
-import { Wrapper, Card, TableHead } from "../components/styled"
+import { Wrapper, Card, TableHead } from "../components/styled";
 
 const Leaderboard = props => {
-  let scores = props.scores || []
-  if (scores) scores = scores.sort((a, b) => b.score - a.score)
+  let scores = props.scores || [];
+  if (scores) scores = scores.sort((a, b) => b.score - a.score);
 
   return (
     <Wrapper>
@@ -52,4 +52,4 @@ const Leaderboard = props => {
   );
 };
 
-export default Leaderboard
+export default Leaderboard;
