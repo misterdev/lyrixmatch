@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import { Fab } from "@material-ui/core";
 import styled from "styled-components";
 
@@ -6,77 +6,21 @@ import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 
 import { Card } from "../components/styled";
 import Game from "../components/Game";
-
-const cards = [
-  {
-    id: 0,
-    quote: "Do you want to be my lover?",
-    options: ["MJ", "Sfera Ebbasta", "Spice Girls"],
-    answer: 2
-  },
-  {
-    id: 1,
-    quote: "Annie, are you ok?",
-    options: ["MJ", "Sfera Ebbasta", "Spice Girls"],
-    answer: 0
-  },
-  {
-    id: 2,
-    quote: "Rockstar, Rockstar, ...",
-    options: ["MJ", "Sfera Ebbasta", "Spice Girls"],
-    answer: 1
-  },
-  {
-    id: 3,
-    quote: "Do you want to be my lover?",
-    options: ["MJ", "Sfera Ebbasta", "Spice Girls"],
-    answer: 2
-  },
-  {
-    id: 4,
-    quote: "Do you want to be my lover?",
-    options: ["MJ", "Sfera Ebbasta", "Spice Girls"],
-    answer: 2
-  },
-  {
-    id: 5,
-    quote: "Do you want to be my lover?",
-    options: ["MJ", "Sfera Ebbasta", "Spice Girls"],
-    answer: 2
-  },
-  {
-    id: 6,
-    quote: "Do you want to be my lover?",
-    options: ["MJ", "Sfera Ebbasta", "Spice Girls"],
-    answer: 2
-  },
-  {
-    id: 7,
-    quote: "Do you want to be my lover?",
-    options: ["MJ", "Sfera Ebbasta", "Spice Girls"],
-    answer: 2
-  },
-  {
-    id: 8,
-    quote: "Do you want to be my lover?",
-    options: ["MJ", "Sfera Ebbasta", "Spice Girls"],
-    answer: 2
-  },
-  {
-    id: 9,
-    quote: "Do you want to be my lover? mario",
-    options: ["MJ", "Sfera Ebbasta", "Spice Girls"],
-    answer: 2
-  }
-];
+import { getCards } from '../utils/mxm-api'
 
 const GameWrapper = props => {
   const { saveScore } = props;
   const [isPlaying, setPlaying] = useState(false);
   const [lastScore, setLastScore] = useState(null);
+  const [cards, setCards] = useState(null)
+
+  const randomInt = (max) => Math.floor(Math.random() * Math.floor(max));
 
   const startGame = () => {
-    setPlaying(true);
+    getCards(randomInt(18)).then(c => {
+      setCards(c)
+      setPlaying(true)
+    })
   };
 
   useEffect(() => {
