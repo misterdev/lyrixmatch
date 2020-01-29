@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Button, Input, Paper } from "@material-ui/core";
 import {
-  TableContainer,
   Table,
   TableBody,
+  TableHead,
   TableRow,
   TableCell
 } from "@material-ui/core";
 
-import { Wrapper, Card, TableHead } from "../components/styled";
+import { Wrapper, Card, TableHeadCell, TableWrapper } from "../components/styled";
 
 const Profile = props => {
   const { user, login, logout } = props;
@@ -29,18 +29,18 @@ const Profile = props => {
           </Button>
           <br />
           <br />
-          <TableContainer component={Paper}>
-            <Table>
+          <TableWrapper component={Paper}>
+            <Table stickyHeader>
               <TableHead>
                 <TableRow>
                   {user.scores.length === 0 ? (
-                    <TableCell align="center">
+                    <TableHeadCell align="center">
                       PLAY THE GAME TO SEE YOUR SCORES HERE!
-                    </TableCell>
+                    </TableHeadCell>
                   ) : (
                     <>
-                      <TableCell align="center">SCORE</TableCell>
-                      <TableCell align="center">DATE</TableCell>
+                      <TableHeadCell align="center">SCORE</TableHeadCell>
+                      <TableHeadCell align="center">DATE</TableHeadCell>
                     </>
                   )}
                 </TableRow>
@@ -54,7 +54,7 @@ const Profile = props => {
                 ))}
               </TableBody>
             </Table>
-          </TableContainer>
+          </TableWrapper>
         </Card>
       ) : (
         <Card>

@@ -44,7 +44,7 @@ const App = () => {
     storage.getUser(authId)
   );
   const [scores, setScores] = useState(storage.getScores());
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
 
   const addScore = score => {
     const newScore = {

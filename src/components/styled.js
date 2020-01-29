@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { TableHead as MuiTableHead } from "@material-ui/core";
+import { TableCell, TableContainer } from "@material-ui/core";
 
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   background-color: #999;
-  padding: 10%;
+  padding: 10vh 10vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -21,7 +21,11 @@ const Card = styled.div`
   justify-content: center;
   box-shadow: 0px 5px 15px 0px #333;
 `;
-const TableHead = styled(MuiTableHead)`
-  background-color: #bbb;
+
+const TableWrapper = styled(TableContainer)`
+  max-height: 50vh;
 `;
-export { Wrapper, Card, TableHead };
+const TableHeadCell = styled(TableCell)`
+  background-color: #bbb !important;
+`;
+export { Wrapper, Card, TableWrapper, TableHeadCell };

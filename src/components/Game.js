@@ -43,7 +43,7 @@ const Game = props => {
   const restartCountdown = () => {
     clearInterval(intervalCd);
     setIntervalCd(null);
-    setCountdown(5);
+    setCountdown(20);
   };
   const cardIndex = i => cards.length - 1 - i;
 

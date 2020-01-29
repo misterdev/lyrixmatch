@@ -1,14 +1,13 @@
 import React from "react";
 import { Paper } from "@material-ui/core";
 import {
-  TableContainer,
   Table,
+  TableHead,
   TableBody,
   TableRow,
   TableCell
 } from "@material-ui/core";
-
-import { Wrapper, Card, TableHead } from "../components/styled";
+import { Wrapper, Card, TableWrapper, TableHeadCell } from "../components/styled";
 
 const Leaderboard = props => {
   let scores = props.scores || [];
@@ -19,8 +18,8 @@ const Leaderboard = props => {
       <Card>
         <h3>🏆 LEADERBOARD 🏆</h3>
         <br />
-        <TableContainer component={Paper}>
-          <Table>
+        <TableWrapper component={Paper}>
+          <Table stickyHeader>
             <TableHead>
               <TableRow>
                 {scores.length === 0 ? (
@@ -29,9 +28,9 @@ const Leaderboard = props => {
                   </TableCell>
                 ) : (
                   <>
-                    <TableCell align="center">PLAYER</TableCell>
-                    <TableCell align="center">SCORE</TableCell>
-                    <TableCell align="center">DATE</TableCell>
+                    <TableHeadCell align="center">PLAYER</TableHeadCell>
+                    <TableHeadCell align="center">SCORE</TableHeadCell>
+                    <TableHeadCell align="center">DATE</TableHeadCell>
                   </>
                 )}
               </TableRow>
@@ -46,7 +45,7 @@ const Leaderboard = props => {
               ))}
             </TableBody>
           </Table>
-        </TableContainer>
+        </TableWrapper>
       </Card>
     </Wrapper>
   );
