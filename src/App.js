@@ -7,7 +7,6 @@ import {
   Typography,
   Toolbar
 } from "@material-ui/core";
-// import { BrowserRouter as Router, Switch, Link } from "react-router-dom";
 
 import PersonIcon from "@material-ui/icons/Person";
 import FormatListNumberedIcon from "@material-ui/icons/FormatListNumbered";
@@ -44,14 +43,13 @@ const App = () => {
     storage.getUser(authId)
   );
   const [scores, setScores] = useState(storage.getScores());
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
 
   const addScore = score => {
     const newScore = {
       ...score,
       userId: authId
     };
-    console.log("SAVING NEW SCORE", newScore, authUser);
     setScores(scores => {
       scores.push(newScore);
       return scores;
@@ -61,7 +59,6 @@ const App = () => {
   };
 
   const switchPage = (a, newPage) => {
-    console.log('switch', a, newPage)
     setPage(newPage);
   } 
 
@@ -77,7 +74,7 @@ const App = () => {
     user.scores = scores;
     authUserDispatch({ type: "login", user });
   };
-console.log('page', page)
+
   return (
     <FullscreenWrapper>
       <AppBar position="static">
@@ -123,11 +120,9 @@ console.log('page', page)
   );
 };
 
-const TabPage = ({ children, page, index }) => {
-  console.log(page, index, children, page !== index)
-  return (
+const TabPage = ({ children, page, index }) => (
   <Page hidden={page !== index}>{children}</Page>
-)};
+);
 
 const FullscreenWrapper = styled.div`
   width: 100%;

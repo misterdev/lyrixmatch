@@ -40,7 +40,7 @@ const Game = props => {
     setTimeout(() => {
       set(i => (currQuest === cardIndex(i) ? { x: 1000, opacity: 0 } : null));
       restartCountdown();
-    }, 1000);
+    }, 1500);
   };
   const restartCountdown = () => {
     clearInterval(intervalCd);
@@ -50,26 +50,22 @@ const Game = props => {
   const cardIndex = i => cards.length - 1 - i;
 
   useEffect(() => {
-    console.log("GAMEUSEFFECT");
     // If game not started
     if (countdown === null) {
       restartCountdown();
     // If the countdown isn't running
     } else if (!intervalCd && countdown > 0) {
-      console.log("1");
       const interval = setInterval(() => {
         setCountdown(cd => cd - 1);
       }, 1000);
       setIntervalCd(interval);
     // Switch card when time is over
     } else if (intervalCd && countdown === 0 && currQuest !== cards.length) {
-      console.log("2");
       clearInterval(intervalCd);
       setIntervalCd(null);
       showNextCard();
     // If it's the last question
     } else if (currQuest === cards.length) {
-      console.log("3");
       clearInterval(intervalCd);
       setTimeout(() =>
         setLastScore({

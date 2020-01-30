@@ -25,7 +25,6 @@ const GameWrapper = props => {
 
   useEffect(() => {
     if (lastScore !== null) {
-      console.log("LAST SCORE", lastScore);
       saveScore(lastScore);
       setPlaying(false);
     }

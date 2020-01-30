@@ -3,4 +3,10 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 
+console = {
+    log: () => {},
+    warn: () => {},
+    error: () => {}
+}
 ReactDOM.render(<App />, document.getElementById("root"));
+

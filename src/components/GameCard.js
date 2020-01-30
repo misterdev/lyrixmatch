@@ -17,7 +17,6 @@ const GameCard = props => {
     if (choice === null) {
       makeChoice(a);
       onResult(a === answer);
-      console.log('card', card)
     }
   };
 

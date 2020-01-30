@@ -39,7 +39,7 @@ const Leaderboard = props => {
             <TableBody>
               {scores.map((s, key) => (
                 <TableRow key={key}>
-                  <TableCell align="center">{key}</TableCell>
+                  <TableCell align="center">{key + 1}</TableCell>
                   <TableCell align="center">{s.userId}</TableCell>
                   <TableCell align="center">{s.score}</TableCell>
                   <TableCell align="center">{s.date}</TableCell>

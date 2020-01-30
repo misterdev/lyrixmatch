@@ -21,7 +21,7 @@ const Profile = props => {
       {user ? (
         <Card>
           <h3>
-            ⭐ Welcome <b>{user.name}</b> ⭐
+            ⭐ Welcome <u>{user.name}</u> ⭐
           </h3>
           <br />
           <Button variant="contained" color="primary" onClick={() => logout()}>
