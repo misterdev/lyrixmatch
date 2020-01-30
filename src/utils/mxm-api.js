@@ -9,7 +9,7 @@ const fetch = url =>
     .then(r => r.json())
     .then(r => Promise.resolve(r.message.body));
 
-// Very bad naive wat of fetching a pool of artists
+// Very naive way of fetching a pool of artists
 let artists = null;
 fetch(url("chart.artists.get", `page=1&page_size=80&country=it`)).then(
   ({ artist_list }) =>
@@ -17,14 +17,13 @@ fetch(url("chart.artists.get", `page=1&page_size=80&country=it`)).then(
 );
 
 const getLyrics = commontrack_id =>
-  fetch(
-    url("track.lyrics.get", `commontrack_id=${commontrack_id}`)
-  ).then(({ lyrics }) =>
-    Promise.resolve(
-      lyrics.lyrics_body
-        .split("\n")
-        .filter(l => l !== "" && l.length > 20 && l.length < 50)[0]
-    )
+  fetch(url("track.lyrics.get", `commontrack_id=${commontrack_id}`)).then(
+    ({ lyrics }) =>
+      Promise.resolve(
+        lyrics.lyrics_body
+          .split("\n")
+          .filter(l => l && l !== "" && l.length > 20 && l.length < 50)[0]
+      )
   );
 
 const getTracks = page =>
@@ -48,14 +47,13 @@ const getTracks = page =>
 
 const getCards = page =>
   getTracks(page)
-    .then(
-      async tracks =>
-        await Promise.all(
-          tracks.map(async track => ({
-            ...track,
-            quote: await getLyrics(track.commontrack_id)
-          }))
-        )
+    .then(tracks =>
+      Promise.all(
+        tracks.map(async track => ({
+          ...track,
+          quote: await getLyrics(track.commontrack_id)
+        }))
+      )
     )
     .then(tracks =>
       Promise.resolve(
@@ -67,9 +65,10 @@ const getCards = page =>
             if (options.length === answer) {
               options.push(artist_name);
             } else {
+              // TODO this can lead at duplicated artists
               const i = Math.floor(Math.random() * artists.length - 1);
               const randomArtist = artists[i];
-              if (randomArtist !== artist_name && randomArtist !== "") {
+              if (randomArtist && randomArtist !== "" && randomArtist !== artist_name) {
                 options.push(randomArtist);
               }
             }

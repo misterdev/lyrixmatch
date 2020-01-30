@@ -29,9 +29,11 @@ const Game = props => {
   }));
 
   const onCardResult = (i, correct) => {
-    if (correct) setScore(s => s + 1);
-    clearInterval(intervalCd);
-    showNextCard();
+    if (countdown > 0) {
+      if (correct) setScore(s => s + 1);
+      clearInterval(intervalCd);
+      showNextCard();
+    }
   };
   const showNextCard = () => {
     setCurrQuest(q => q + 1);
@@ -52,26 +54,28 @@ const Game = props => {
     // If game not started
     if (countdown === null) {
       restartCountdown();
+    // If the countdown isn't running
     } else if (!intervalCd && countdown > 0) {
       console.log("1");
       const interval = setInterval(() => {
         setCountdown(cd => cd - 1);
       }, 1000);
       setIntervalCd(interval);
-      // Switch card when time is over
+    // Switch card when time is over
     } else if (intervalCd && countdown === 0 && currQuest !== cards.length) {
       console.log("2");
       clearInterval(intervalCd);
       setIntervalCd(null);
       showNextCard();
+    // If it's the last question
     } else if (currQuest === cards.length) {
       console.log("3");
       clearInterval(intervalCd);
-      console.log(new Date(), new Date().toLocaleString());
-      setLastScore({
-        score,
-        date: new Date().toLocaleString()
-      });
+      setTimeout(() =>
+        setLastScore({
+          score,
+          date: new Date().toLocaleString()
+        }), 1500)
     }
   }, [countdown, currQuest]);
 
@@ -93,7 +97,7 @@ const Game = props => {
           index={cardIndex(i) + 1}
           rot={rot}
           scale={scale}
-          question={cards[i]}
+          card={cards[i]}
           onResult={res => onCardResult(i, res)}
           style={{
             opacity,

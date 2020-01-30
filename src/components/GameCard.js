@@ -9,19 +9,20 @@ const trans = (r, s) =>
     10}deg) rotateZ(${r}deg) scale(${s})`;
 
 const GameCard = props => {
-  const { rot, scale, question, onResult, index } = props;
-  const { quote, options, answer } = question;
+  const { rot, scale, card, onResult, index, style } = props;
+  const { quote, options, answer, track } = card;
   const [choice, makeChoice] = useState(null);
 
   const onAnswer = a => {
     if (choice === null) {
       makeChoice(a);
       onResult(a === answer);
+      console.log('card', card)
     }
   };
 
   return (
-    <Wrapper {...props}>
+    <Wrapper style={style}>
       <Card style={{ transform: interpolate([rot, scale], trans) }}>
         <Title>({index}) Who sings...</Title>
         <Quote>"{quote}"</Quote>
@@ -41,6 +42,7 @@ const GameCard = props => {
             </AnswerButton>
           </Answer>
         ))}
+        { choice !== null &&  <Track><span>🎵</span> <b>{track}</b></Track> }
       </Card>
     </Wrapper>
   );
@@ -89,5 +91,14 @@ const Answer = styled.div`
 const AnswerButton = styled(Button)`
   flex-grow: 1;
 `;
+const Track = styled.div`
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1em;
+`
 
 export default GameCard;
