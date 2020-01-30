@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/lyrixmatch/static/css/main.b19817e1.chunk.css",
-    "main.js": "/lyrixmatch/static/js/main.483a8c85.chunk.js",
-    "main.js.map": "/lyrixmatch/static/js/main.483a8c85.chunk.js.map",
+    "main.js": "/lyrixmatch/static/js/main.032cae9d.chunk.js",
+    "main.js.map": "/lyrixmatch/static/js/main.032cae9d.chunk.js.map",
     "runtime-main.js": "/lyrixmatch/static/js/runtime-main.57ccce01.js",
     "runtime-main.js.map": "/lyrixmatch/static/js/runtime-main.57ccce01.js.map",
     "static/js/2.745f30db.chunk.js": "/lyrixmatch/static/js/2.745f30db.chunk.js",
     "static/js/2.745f30db.chunk.js.map": "/lyrixmatch/static/js/2.745f30db.chunk.js.map",
     "index.html": "/lyrixmatch/index.html",
-    "precache-manifest.0647671fea30ed2ebd2adf014c38202b.js": "/lyrixmatch/precache-manifest.0647671fea30ed2ebd2adf014c38202b.js",
+    "precache-manifest.87ea145ae3a4f9c517860f8908502065.js": "/lyrixmatch/precache-manifest.87ea145ae3a4f9c517860f8908502065.js",
     "service-worker.js": "/lyrixmatch/service-worker.js",
     "static/css/main.b19817e1.chunk.css.map": "/lyrixmatch/static/css/main.b19817e1.chunk.css.map",
     "static/js/2.745f30db.chunk.js.LICENSE": "/lyrixmatch/static/js/2.745f30db.chunk.js.LICENSE"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.57ccce01.js",
     "static/js/2.745f30db.chunk.js",
     "static/css/main.b19817e1.chunk.css",
-    "static/js/main.483a8c85.chunk.js"
+    "static/js/main.032cae9d.chunk.js"
   ]
 }
