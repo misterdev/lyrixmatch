@@ -92,7 +92,7 @@ const AnswerButton = styled(Button)`
 `;
 const Track = styled.div`
   width: 100%;
-  height: 100%;
+  height: 80px;
   text-align: center;
   display: flex;
   align-items: center;
