@@ -4,8 +4,7 @@ import { TableCell, TableContainer } from "@material-ui/core";
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
-  background-color: #999;
-  padding: 10vh 10vw;
+  padding: 7vh 10vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,7 +22,7 @@ const Card = styled.div`
 `;
 
 const TableWrapper = styled(TableContainer)`
-  max-height: 50vh;
+  max-height: 40vh;
 `;
 const TableHeadCell = styled(TableCell)`
   background-color: #bbb !important;

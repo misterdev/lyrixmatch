@@ -7,7 +7,7 @@ import {
   Typography,
   Toolbar
 } from "@material-ui/core";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+// import { BrowserRouter as Router, Switch, Link } from "react-router-dom";
 
 import PersonIcon from "@material-ui/icons/Person";
 import FormatListNumberedIcon from "@material-ui/icons/FormatListNumbered";
@@ -44,7 +44,7 @@ const App = () => {
     storage.getUser(authId)
   );
   const [scores, setScores] = useState(storage.getScores());
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
 
   const addScore = score => {
     const newScore = {
@@ -60,7 +60,10 @@ const App = () => {
     storage.addNewScore(newScore);
   };
 
-  const switchPage = (_, newPage) => setPage(newPage);
+  const switchPage = (a, newPage) => {
+    console.log('switch', a, newPage)
+    setPage(newPage);
+  } 
 
   const loginHandler = userName => {
     // Users are indexed using their username
@@ -74,7 +77,7 @@ const App = () => {
     user.scores = scores;
     authUserDispatch({ type: "login", user });
   };
-
+console.log('page', page)
   return (
     <FullscreenWrapper>
       <AppBar position="static">
@@ -82,51 +85,49 @@ const App = () => {
           <Title variant="h6">LyriXmatch</Title>
         </Header>
       </AppBar>
-      <Router>
-        <Switch>
-          <Route path="/game">
-            <Page>
-              {authUser ? (
-                <GameWrapper saveScore={addScore} />
-              ) : (
-                <Profile
-                  user={authUser}
-                  login={loginHandler}
-                  logout={() => authUserDispatch({ type: "logout" })}
-                />
-              )}
-            </Page>
-          </Route>
-          <Route path="/leaderboard">
-            <Page>
-              <Loaderboard scores={scores} />
-            </Page>
-          </Route>
-          <Route path="/">
-            <Page>
-              <Profile
-                user={authUser}
-                login={loginHandler}
-                logout={() => authUserDispatch({ type: "logout" })}
-              />
-            </Page>
-          </Route>
-        </Switch>
-        <Navigation value={page} onChange={switchPage} showLabels>
-          <Tab
-            label="LEADERBOARD"
-            icon={<FormatListNumberedIcon />}
-            to="/leaderboard"
+      <Content>
+        <TabPage page={page} index={0}>
+          <Loaderboard scores={scores} />
+        </TabPage>
+        <TabPage page={page} index={1}>
+          {authUser ? (
+            <GameWrapper saveScore={addScore} />
+          ) : (
+            <Profile
+              user={authUser}
+              login={loginHandler}
+              logout={() => authUserDispatch({ type: "logout" })}
+            />
+          )}
+        </TabPage>
+        <TabPage page={page} index={2}>
+          <Profile
+            user={authUser}
+            login={loginHandler}
+            logout={() => authUserDispatch({ type: "logout" })}
           />
-          <Tab label="PLAY" icon={<SportsEsportsSharpIcon />} to="/game" />
-          <Tab label="PROFILE" icon={<PersonIcon />} to="/" />
-        </Navigation>
-      </Router>
+        </TabPage>
+      </Content>
+      <Navigation value={page} onChange={switchPage} showLabels>
+        <BottomNavigationAction
+          label="LEADERBOARD"
+          icon={<FormatListNumberedIcon />}
+        />
+        <BottomNavigationAction
+          label="PLAY"
+          icon={<SportsEsportsSharpIcon />}
+        />
+        <BottomNavigationAction label="PROFILE" icon={<PersonIcon />} />
+      </Navigation>
     </FullscreenWrapper>
   );
 };
 
-const Tab = props => <BottomNavigationAction component={Link} {...props} />;
+const TabPage = ({ children, page, index }) => {
+  console.log(page, index, children, page !== index)
+  return (
+  <Page hidden={page !== index}>{children}</Page>
+)};
 
 const FullscreenWrapper = styled.div`
   width: 100%;
@@ -137,10 +138,8 @@ const FullscreenWrapper = styled.div`
 `;
 const Navigation = styled(BottomNavigation)`
   bottom: 0;
-`;
-const Page = styled.div`
-  background-color: #999;
-  height: 100%;
+  width: 100%;
+  z-index: 10;
 `;
 const Header = styled(Toolbar)`
   background-color: white;
@@ -149,5 +148,15 @@ const Header = styled(Toolbar)`
 const Title = styled(Typography)`
   width: 100%;
   text-align: center;
+`;
+const Content = styled.div`
+  height: 100%;
+  width: 100%;
+  background-color: #85aded;
+`;
+const Page = styled.div`
+  height: calc(100vh - 120px);
+  width: 100%;
+  position: absolute;
 `;
 export default App;
