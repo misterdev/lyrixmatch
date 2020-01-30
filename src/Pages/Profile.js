@@ -59,7 +59,7 @@ const Profile = props => {
       ) : (
         <Card>
           <h2>What's your name?</h2>
-          <form onSubmit={() => login(userName)}>
+          <form onSubmit={() => userName.length > 0 ? login(userName) : null}>
             <Input
               value={userName}
               onChange={onInputChage}
@@ -67,10 +67,12 @@ const Profile = props => {
             >
               {" "}
             </Input>
+            &nbsp;&nbsp;
             <Button
               type="submit"
               variant="contained"
               color="primary"
+              disabled={userName.length === 0}
             >
               LOGIN
             </Button>
